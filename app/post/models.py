@@ -1,6 +1,8 @@
 from django.db import models
 from core.models import BaseModel
 from django.contrib.auth.models import User
+from django_summernote.models import AbstractAttachment
+from utils.image import resize_image
 
 
 class Category(BaseModel):
@@ -13,6 +15,15 @@ class Category(BaseModel):
 
     def __str__(self):
         return self.name
+
+
+class PostAttachment(AbstractAttachment):
+    def save(self, *args, **kwargs):
+        if not self.name:
+            self.name = self.file.name
+
+        resize_image(self.file, 900)
+        return super().save(*args, **kwargs)
 
 
 class Post(BaseModel):
