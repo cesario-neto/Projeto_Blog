@@ -5,7 +5,7 @@
         {% for post in posts %}
             <div class="card">
                 <div class="card__banner">
-                    <a href="post.html" class="card__banner__link">
+                    <a href="{% url "post" post.slug %}" class="card__banner__link">
                         {% if post.banner %}
                         <img src="{{ post.banner.url }}" alt="">
                         {% else %}
@@ -15,7 +15,7 @@
                 </div>
 
                 <div class="card__title">
-                    <a href="post.html" class="card__title__link">
+                    <a href="{% url "post" post.slug %}" class="card__title__link">
                         <h2>{{ post.title }}</h2>
                     </a>
                 </div>
