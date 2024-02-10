@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+    <main class="container main">
+        {% for post in posts %}
+            <div class="card">
+                <div class="card__banner">
+                    <a href="post.html" class="card__banner__link">
+                        {% if post.banner %}
+                        <img src="{{ post.banner.url }}" alt="">
+                        {% else %}
+                        <img src="{% static "assets/img/img_example.png" %}" alt="">
+                        {% endif %}
+                    </a>
+                </div>
+
+                <div class="card__title">
+                    <a href="post.html" class="card__title__link">
+                        <h2>{{ post.title }}</h2>
+                    </a>
+                </div>
+                <div class="card__description">
+                    <p class="card__description__text">
+                        {{ post.description }}
+                    </p>
+                </div>
+            </div>
+        {% endfor %}
+    </main>
+{% endblock content %}
