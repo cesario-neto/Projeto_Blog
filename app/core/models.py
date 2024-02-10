@@ -68,7 +68,8 @@ class LinkGroup(BaseModel):
 
 
 class Link(BaseModel):
-    name = models.CharField(verbose_name='Nome', blank=False, null=False)
+    name = models.CharField(verbose_name='Nome',
+                            blank=False, null=False, max_length=200)
     url = models.URLField(unique=True, blank=False, null=False)
 
     class Meta:
