@@ -6,6 +6,7 @@ class SiteSetup(BaseModel):
     favicon = models.ImageField(
         verbose_name='Favicon', upload_to='favicon/%Y/%m/%d',
         blank=False, null=False)
+    title = models.CharField(verbose_name='Título', max_length=100)
     logo = models.ImageField(verbose_name='Logo', upload_to='logo/%Y/%m/%d',
                              blank=False, null=False)
     footer_text = models.CharField(
