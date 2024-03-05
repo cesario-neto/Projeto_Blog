@@ -1,20 +1,38 @@
 {% extends "base.html" %}
 {% load static %}
-{% block content %}
-    <main class="container main">
-        <div class="post">
+<main class="container main">
+    <div class="post">
 
+        {% if post.banner %}
+            <img src="{{ post.banner.url }}" alt="" class="post__banner">
+        {% endif %}
+
+        <h2 class="post__title">{{ post.title }}</h2>
+        <a href="">{{ post.category.name }}</a>
+
+        {{ post.content | safe}}
+
+        <img src="assets/img/img_example.png" alt="">
+    </div>
+</main>
+{% block content %}
+    <section class="container-lg mt-5 mb-5" style="min-height: 80vh;">
+        <div class="container">
             {% if post.banner %}
-                <img src="{{ post.banner.url }}" alt="" class="post__banner">
+                <img src="{{ post.banner.url }}" alt="" class="img-fluid mx-auto d-block">
+            {% else %}
+                <img src="{% static "assets/img/default.png" %}" alt="" class="img-fluid mx-auto d-block">
             {% endif %}
 
-            <h2 class="post__title">{{ post.title }}</h2>
-            <a href="">{{ post.category.name }}</a>
+            <div class="text-center mt-3 mb-3">
+                <h1>{{ post.title }}</h1>
+            </div>
 
-            {{ post.content | safe}}
-
-            <img src="assets/img/img_example.png" alt="">
+            <div>
+                {{ post.content | safe}}
+            </div>
         </div>
-    </main>
 
+
+    </section>
 {% endblock content %}

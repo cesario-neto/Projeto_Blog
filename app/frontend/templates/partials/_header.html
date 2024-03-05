@@ -1,19 +1,25 @@
 {% load static %}
-<header class="header">
-    <a href="{% url "home" %}"><img src="{% static "assets/img/img_example.png" %}" alt="" class="header__logo"></a>
-
-    <div class="mobile">
-        <button class="mobile__menu"></button>
-        <nav class="mobile__menu__nav">
-            <a href="{% url "home" %}" class="mobile__menu-link">Inicio</a>
-            <a href="" class="mobile__menu-link">Contato</a>
-        </nav>
-    </div>
-
-    <div class="desktop">
-        <nav class="desktop__menu__nav">
-            <a href="{% url "home" %}" class="desktop__menu-link">Inicio</a>
-            <a href="" class="desktop__menu-link">Contato</a>
-        </nav>
-    </div>
+<header class="bg-primary">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary p-3">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{% url "home" %}">
+                <img src="{% static "assets/img/default.png" %}" alt="" width="150" height="80">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 text-end fs-3">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{% url "home" %}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url "home" %}">Contatos</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 </header>

@@ -1,30 +1,51 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-    <main class="container main">
-        {% for post in posts %}
-            <div class="card">
-                <div class="card__banner">
-                    <a href="{% url "post" post.slug %}" class="card__banner__link">
-                        {% if post.banner %}
-                        <img src="{{ post.banner.url }}" alt="">
-                        {% else %}
-                        <img src="{% static "assets/img/img_example.png" %}" alt="">
-                        {% endif %}
-                    </a>
-                </div>
 
-                <div class="card__title">
-                    <a href="{% url "post" post.slug %}" class="card__title__link">
-                        <h2>{{ post.title }}</h2>
+    <section class="container-lg mt-4" style="min-height: 90vh;">
+
+        <div class="row">
+
+            {% for post in posts %}
+                <div class="col-sm-6 col-xl-4">
+                    <div class="card mb-3 mt-3">
+                        <a href="{% url "post" post.slug %}">
+                            {% if post.banner %}
+                            <img src="{{ post.banner.url }}" class="card-img-top" alt="...">
+                            {% else %}
+                            <img src="{% static "assets/img/default.png" %}" class="card-img-top" alt="...">
+                            {% endif %}
+                        </a>
+                        <div class="card-body">
+                            <a href="{% url "post" post.slug %}"
+                                class="text-center link-dark link-underline-opacity-0 link-underline-opacity-100-hover">
+                                <h5 class="card-title">{{ post.title }}</h5>
+                            </a>
+                            <p class="card-text">{{ post.description }}</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+
+        </div>
+
+        <nav aria-label="Page navigation" class="mt-2 mb-3">
+            <ul class="pagination justify-content-center">
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
                     </a>
-                </div>
-                <div class="card__description">
-                    <p class="card__description__text">
-                        {{ post.description }}
-                    </p>
-                </div>
-            </div>
-        {% endfor %}
-    </main>
+                </li>
+                <li class="page-item"><a class="page-link active" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+    </section>
 {% endblock content %}
