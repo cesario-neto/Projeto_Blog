@@ -1,7 +1,25 @@
-from typing import Any
-from django.db.models.query import QuerySet
 from django.views.generic import ListView, DetailView
 from post.models import Post
+
+
+def make_range_page(page_range, current_page):
+
+    start_page = current_page - 2
+    stop_page = current_page + 2
+
+    total_pages = len(page_range)
+
+    if start_page < 1:
+        stop_page += abs(start_page)
+        start_page = 0
+
+    if stop_page >= total_pages:
+        start_page -= abs(stop_page - total_pages)
+        stop_page = total_pages
+
+    page_range = page_range[start_page:stop_page]
+
+    return page_range
 
 
 class PostsListView(ListView):
@@ -9,6 +27,19 @@ class PostsListView(ListView):
     context_object_name = 'posts'
     template_name = 'post/pages/home.html'
     paginate_by = 9
+
+    def get_context_data(self, **kwargs):
+        ctx = super().get_context_data(**kwargs)
+        paginator = ctx.get('paginator')
+        page_obj = ctx.get('page_obj')
+
+        page_range = make_range_page(
+            paginator.page_range, page_obj.number)
+
+        ctx.update({
+            'page_range': page_range,
+        })
+        return ctx
 
 
 class PostDetailView(DetailView):
@@ -36,6 +67,21 @@ class SearchPostsListView(ListView):
 
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
+        paginator = ctx.get('paginator')
+        page_obj = ctx.get('page_obj')
+
+        page_range = make_range_page(
+            paginator.page_range, page_obj.number)
+
+        print(page_range)
+
         query = self.request.GET.get('q', '')
-        ctx.update({'query': query})
+        query_term = f'&q={query}'
+
+        ctx.update({
+            'query': query,
+            'query_term': query_term,
+            'page_range': page_range,
+        })
+
         return ctx
