@@ -4,6 +4,23 @@
 
     <section class="container-lg mt-4" style="min-height: 90vh;">
 
+        <div class="container mt-3 mb-3 w-50">
+            <form action="{% url "search" %}" method="get" class="input-group">
+
+                <div class="form-floating">
+                    <input class="form-control" type="search" id="floatingInput" placeholder="Buscar" name="q">
+                    <label for="floatingInput">Buscar</label>
+                </div>
+
+                <button type="submit" class="btn btn-primary">
+                    <span class="material-symbols-outlined">
+                        search
+                    </span>
+                </button>
+            </form>
+        </div>
+
+
         <div class="row">
 
             {% for post in posts %}
@@ -33,9 +50,15 @@
             <ul class="pagination justify-content-center">
                 {% if page_obj.has_previous %}
                     <li class="page-item">
+                        {% if query %}
+                        <a class="page-link" href="?q={{ query }}&page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                        {% else %}
                         <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
                             <span aria-hidden="true">&laquo;</span>
                         </a>
+                        {% endif %}
                     </li>
                 {% else %}
                     <li class="page-item">
@@ -47,9 +70,15 @@
                 <li class="page-item"><a class="page-link active" href="#">{{ page_obj.number }}</a></li>
                 {% if page_obj.has_next %}
                     <li class="page-item">
+                        {% if query %}
+                        <a class="page-link" href="?q={{ query }}&page={{ page_obj.next_page_number }}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                        {% else %}
                         <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>
                         </a>
+                        {% endif %}
                     </li>
                 {% else %}
                     <li class="page-item">
