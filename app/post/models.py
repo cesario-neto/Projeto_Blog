@@ -22,7 +22,9 @@ class PostAttachment(AbstractAttachment):
         if not self.name:
             self.name = self.file.name
 
-        resize_image(self.file, 900)
+        if self.file:
+            resize_image(self.file, 900)
+
         return super().save(*args, **kwargs)
 
 
@@ -44,3 +46,9 @@ class Post(BaseModel):
 
     def __str__(self):
         return self.title
+
+    def save(self, *args, **kwargs):
+        super_save = super().save(*args, **kwargs)
+        if self.banner:
+            resize_image(self.banner, 1200)
+        return super_save
